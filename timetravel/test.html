@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Machine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #1a1a1a;
+            padding: 3rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            border: 2px solid #2e2e2e;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2), 0 0 10px rgba(0, 255, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00ff00;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .year-input {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.125rem;
+            border-radius: 9999px;
+            background-color: #2e2e2e;
+            border: 1px solid #4a4a4a;
+            color: #fff;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            outline: none;
+            width: 12rem;
+        }
+
+        .year-input:focus {
+            box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.5);
+            background-color: #3a3a3a;
+        }
+
+        .travel-button {
+            padding: 0.75rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #fff;
+            background-color: #00ff00;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            outline: none;
+        }
+
+        .travel-button:hover {
+            transform: scale(1.05);
+            background-color: #00cc00;
+        }
+
+        .message-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background-color: rgba(46, 46, 46, 0.8);
+            border: 1px solid rgba(74, 74, 74, 0.8);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .message {
+            font-size: 1rem;
+            color: #00ff00;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .message.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Machine 69</h1>
+        <div class="input-group">
+            <input type="number" id="year-input" class="year-input" placeholder="Enter Year">
+            <button id="travel-button" class="travel-button">Travel</button>
+        </div>
+    </div>
+    
+    <div id="message-container" class="message-container hidden">
+        <p id="message-text" class="message"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const travelButton = document.getElementById('travel-button');
+            const messageContainer = document.getElementById('message-container');
+            const messageText = document.getElementById('message-text');
+
+            const messages = [
+                "Building wormhole.....",
+                "Calling Aliens👽",
+                "Missed call recieved from narendra modi...",
+                "Travelling through dimension",
+                "2026 me toh duniya khatam hai 💀"
+            ];
+
+            let messageIndex = 0;
+            let isAnimating = false;
+
+            travelButton.addEventListener('click', () => {
+                if (isAnimating) {
+                    return;
+                }
+                
+                const yearInput = document.getElementById('year-input').value;
+                if (!yearInput) {
+                    messageContainer.classList.remove('hidden');
+                    messageText.textContent = "Please enter a year to travel!";
+                    messageText.classList.add('visible');
+                    setTimeout(() => {
+                        messageText.classList.remove('visible');
+                    }, 2000); // Hide the message after 2 seconds
+                    return;
+                }
+
+                messageContainer.classList.remove('hidden');
+                messageText.classList.remove('visible');
+                isAnimating = true;
+                messageIndex = 0;
+                displayNextMessage();
+            });
+
+            function displayNextMessage() {
+                if (messageIndex < messages.length) {
+                    messageText.classList.remove('visible');
+                    setTimeout(() => {
+                        messageText.textContent = messages[messageIndex];
+                        messageText.classList.add('visible');
+                        messageIndex++;
+                        setTimeout(displayNextMessage, 3000); // Wait 3 seconds before next message
+                    }, 500); // Wait for fade out
+                } else {
+                    isAnimating = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
